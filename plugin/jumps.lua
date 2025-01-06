@@ -13,6 +13,21 @@ vim.g.loaded_marks = true
 local marks = {}
 local latest = 0
 
+--function dumpTable(tbl, indent)
+--    indent = indent or 0
+--    for k, v in pairs(tbl) do
+--        print(string.rep(" ", indent) .. tostring(k) .. ":")
+--        if type(v) == "table" then
+--            dumpTable(v, indent + 2)
+--        else
+--            print(string.rep(" ", indent + 2) .. tostring(v))
+--        end
+--    end
+--end
+
+local function dumpTable (tbl)
+end
+
 vim.api.nvim_create_user_command("AddMark",
 	function()
 
@@ -31,8 +46,16 @@ vim.api.nvim_create_user_command("AddMark",
 
 vim.api.nvim_create_user_command("ListMarks",
 	function()
+	if (marks == nil) then
+		print("There are no marks.")
+		return
+	end
 
-		dumpTable(marks)
+	for _, line in pairs(marks) do
+		print(tostring(line))
+	end
+
+	print("Latest: " .. unpack(latest))
 
 	end, {}
 )
